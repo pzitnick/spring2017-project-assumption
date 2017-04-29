@@ -2,14 +2,18 @@ package base.data.util;
 
 public class Vector3Modifier implements VectorModifier {
     public Vector add(Vector v1, Vector v2) {
-        return null;
+        for (int curPt = 0; curPt < v1.getDimensionality(); ++curPt) {
+            v1.points[curPt] += v2.points[curPt];
+        }
+
+        return v1;
     }
 
     public Vector sub(Vector v1, Vector v2) {
-        return null;
-    }
+        for (int curPt = 0; curPt < v1.getDimensionality(); ++curPt) {
+            v1.points[curPt] -= v2.points[curPt];
+        }
 
-    public Vector scale(Vector v1, Vector v2) {
-        return null;
+        return v1;
     }
 }

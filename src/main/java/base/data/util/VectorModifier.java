@@ -4,6 +4,4 @@ public interface VectorModifier {
     Vector add(Vector v1, Vector v2);
 
     Vector sub(Vector v1, Vector v2);
-
-    Vector scale(Vector v1, Vector v2);
 }

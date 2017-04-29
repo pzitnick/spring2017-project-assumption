@@ -1,7 +1,7 @@
 package base.data.util;
 
 public abstract class Vector {
-    protected int dimensionality;
+    private int dimensionality;
     protected float[] points;
 
     public int getDimensionality() {
@@ -18,6 +18,14 @@ public abstract class Vector {
         } else {
             throw new ArrayIndexOutOfBoundsException();
         }
+    }
+
+    public void setDimensionality(int dimensionality) {
+        this.dimensionality = dimensionality;
+    }
+
+    public void setPoints(float points[]) {
+        this.points = points;
     }
 
     public void setPoint(float val, int index) throws ArrayIndexOutOfBoundsException {
