@@ -1,15 +1,23 @@
 package base.data.util;
 
 public abstract class Vector {
-    private int dimensionality;
     protected float[] points;
+    private int dimensionality;
 
     public int getDimensionality() {
         return dimensionality;
     }
 
+    public void setDimensionality(int dimensionality) {
+        this.dimensionality = dimensionality;
+    }
+
     public float[] getPoints() {
         return points;
+    }
+
+    public void setPoints(float points[]) {
+        this.points = points;
     }
 
     public float getPoint(int index) throws ArrayIndexOutOfBoundsException {
@@ -18,14 +26,6 @@ public abstract class Vector {
         } else {
             throw new ArrayIndexOutOfBoundsException();
         }
-    }
-
-    public void setDimensionality(int dimensionality) {
-        this.dimensionality = dimensionality;
-    }
-
-    public void setPoints(float points[]) {
-        this.points = points;
     }
 
     public void setPoint(float val, int index) throws ArrayIndexOutOfBoundsException {

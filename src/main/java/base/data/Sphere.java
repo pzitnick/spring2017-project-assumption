@@ -6,7 +6,7 @@ public class Sphere extends Object {
         setMaterial(material);
     }
 
-    public Sphere()  {
+    public Sphere() {
         this(new Material());
     }
 

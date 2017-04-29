@@ -21,12 +21,12 @@ public class Scene {
         return camera;
     }
 
-    public List<Object> getObjects() {
-        return objects;
-    }
-
     public void setCamera(Camera camera) {
         this.camera = camera;
+    }
+
+    public List<Object> getObjects() {
+        return objects;
     }
 
     public void setObjects(List<Object> objects) {
