@@ -20,12 +20,12 @@ public class PathTracer {
         return scene;
     }
 
-    public Display getDisplay() {
-        return display;
-    }
-
     public void setScene(Scene scene) {
         this.scene = scene;
+    }
+
+    public Display getDisplay() {
+        return display;
     }
 
     public void setDisplay(Display display) {
