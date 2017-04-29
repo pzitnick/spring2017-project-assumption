@@ -2,8 +2,10 @@ package base.data.util;
 
 public class Vector3 extends Vector {
 
+    private static final int DIMENSIONALITY = 3;
+
     public Vector3(float x, float y, float z) {
-        setDimensionality(3);
+        setDimensionality(DIMENSIONALITY);
         setPoints(new float[]{x, y, z});
     }
 
