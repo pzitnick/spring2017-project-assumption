@@ -1,7 +1,19 @@
 package base.data.util;
 
-public interface VectorModifier {
-    Vector add(Vector v1, Vector v2);
+public abstract class VectorModifier {
+    public Vector add(Vector v1, Vector v2) {
+        for (int curPt = 0; curPt < v1.getDimensionality(); ++curPt) {
+            v1.points[curPt] += v2.points[curPt];
+        }
 
-    Vector sub(Vector v1, Vector v2);
+        return v1;
+    }
+
+    public Vector sub(Vector v1, Vector v2) {
+        for (int curPt = 0; curPt < v1.getDimensionality(); ++curPt) {
+            v1.points[curPt] -= v2.points[curPt];
+        }
+
+        return v1;
+    }
 }
