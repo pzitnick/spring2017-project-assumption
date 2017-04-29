@@ -1,4 +1,9 @@
 package base.data;
 
-public class Renderable {
+public interface Renderable {
+    void transform();
+
+    Material getMaterial();
+
+    void setMaterial(Material material);
 }

@@ -1,0 +1,46 @@
+package base.data.util;
+
+public abstract class Vector {
+    protected int dimensionality;
+    protected float[] points;
+
+    public int getDimensionality() {
+        return dimensionality;
+    }
+
+    public float[] getPoints() {
+        return points;
+    }
+
+    public float getPoint(int index) throws ArrayIndexOutOfBoundsException {
+        if (index < dimensionality) {
+            return points[index];
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
+
+    public void setPoint(float val, int index) throws ArrayIndexOutOfBoundsException {
+        if (index < dimensionality) {
+            points[index] = val;
+        } else {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getClass().toString());
+        sb.append("(" + hashCode() + ")[");
+        for (int curPt = 0; curPt < dimensionality; ++curPt) {
+            if (curPt < dimensionality - 1) {
+                sb.append(String.format("%.2f, ", points[curPt]));
+            } else {
+                sb.append(String.format("%.2f]", points[curPt]));
+            }
+        }
+
+        return sb.toString();
+    }
+}
