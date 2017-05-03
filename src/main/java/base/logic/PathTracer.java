@@ -10,6 +10,7 @@ public class PathTracer {
 
     public PathTracer(Scene scene, Display display) {
         this.scene = scene;
+        this.display = display;
     }
 
     public PathTracer() {

@@ -5,16 +5,20 @@ import base.data.util.Vector4;
 import base.data.util.Vector4Modifier;
 import base.logic.PathTracer;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Application {
+
+    private static final Logger LOGGER = Logger.getLogger(Application.class.getName());
 
     private Application() {
     }
 
     public static void main(String[] args) {
-        PathTracer pt = new PathTracer();
-
         Vector3 v = new Vector3(1, 2, 3);
         Vector4 v4 = new Vector4(3, 4, 5, 6);
-        System.out.println(Vector4Modifier.mul(v4, v));
+
+        LOGGER.log(Level.INFO, Vector4Modifier.mul(v4, v).toString());
     }
 }
