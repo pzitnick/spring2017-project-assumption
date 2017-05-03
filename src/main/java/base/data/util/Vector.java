@@ -16,11 +16,11 @@ public abstract class Vector {
         return points;
     }
 
-    public void setPoints(float points[]) {
+    public void setPoints(float[] points) {
         this.points = points;
     }
 
-    public float getPoint(int index) throws ArrayIndexOutOfBoundsException {
+    public float getPoint(int index) {
         if (index < dimensionality) {
             return points[index];
         } else {
@@ -28,7 +28,7 @@ public abstract class Vector {
         }
     }
 
-    public void setPoint(float val, int index) throws ArrayIndexOutOfBoundsException {
+    public void setPoint(float val, int index) {
         if (index < dimensionality) {
             points[index] = val;
         } else {
