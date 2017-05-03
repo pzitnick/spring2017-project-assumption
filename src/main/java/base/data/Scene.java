@@ -6,15 +6,15 @@ import java.util.List;
 public class Scene {
 
     private Camera camera;
-    private List<Object> objects;
+    private List<SceneObject> sceneObjects;
 
-    public Scene(Camera camera, List<Object> objects) {
+    public Scene(Camera camera, List<SceneObject> sceneObjects) {
         this.camera = camera;
-        this.objects = objects;
+        this.sceneObjects = sceneObjects;
     }
 
     public Scene() {
-        this(new Camera(), new ArrayList<Object>());
+        this(new Camera(), new ArrayList<SceneObject>());
     }
 
     public Camera getCamera() {
@@ -25,11 +25,11 @@ public class Scene {
         this.camera = camera;
     }
 
-    public List<Object> getObjects() {
-        return objects;
+    public List<SceneObject> getSceneObjects() {
+        return sceneObjects;
     }
 
-    public void setObjects(List<Object> objects) {
-        this.objects = objects;
+    public void setSceneObjects(List<SceneObject> sceneObjects) {
+        this.sceneObjects = sceneObjects;
     }
 }

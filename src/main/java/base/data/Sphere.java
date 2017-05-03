@@ -1,6 +1,6 @@
 package base.data;
 
-public class Sphere extends Object {
+public class Sphere extends SceneObject {
 
     public Sphere(Material material) {
         setMaterial(material);

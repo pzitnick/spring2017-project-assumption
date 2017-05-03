@@ -1,6 +1,6 @@
 package base.data;
 
-public abstract class Object {
+public abstract class SceneObject {
     private Material material;
 
     public Material getMaterial() {
