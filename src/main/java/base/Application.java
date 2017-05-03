@@ -3,7 +3,6 @@ package base;
 import base.data.util.Vector3;
 import base.data.util.Vector4;
 import base.data.util.Vector4Modifier;
-import base.logic.PathTracer;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
