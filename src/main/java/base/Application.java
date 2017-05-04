@@ -11,6 +11,7 @@ public class Application {
     private static final Logger LOGGER = Logger.getLogger(Application.class.getName());
 
     private Application() {
+        throw new UnsupportedOperationException();
     }
 
     public static void main(String[] args) {
