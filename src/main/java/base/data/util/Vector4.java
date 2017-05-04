@@ -2,10 +2,11 @@ package base.data.util;
 
 public class Vector4 extends Vector {
 
-    private float w;
-    private float x;
-    private float y;
-    private float z;
+    // Calling vector.w is a lot less verbose than vector.points[0]
+    protected float w;
+    protected float x;
+    protected float y;
+    protected float z;
 
     public Vector4(float w, float x, float y, float z) {
         setNumPoints(4);
@@ -19,7 +20,7 @@ public class Vector4 extends Vector {
         this(0, 0, 0, 0);
     }
 
-    public float getPoint(int index) throws IndexOutOfBoundsException {
+    public float getPoint(int index) {
         switch (index) {
             case 0:
                 return w;
@@ -34,7 +35,7 @@ public class Vector4 extends Vector {
         }
     }
 
-    public void setPoint(int index, float value) throws IndexOutOfBoundsException {
+    public void setPoint(int index, float value) {
         switch (index) {
             case 0:
                 w = value;

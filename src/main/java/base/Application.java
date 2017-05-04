@@ -1,7 +1,6 @@
 package base;
 
 import base.data.util.Vector3;
-import base.data.util.Vector3Modifier;
 import base.data.util.Vector4;
 
 import java.util.logging.Level;
@@ -15,13 +14,9 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        Vector3 v = new Vector3(1, 2, 3);
+        Vector3 v3 = new Vector3(1, 2, 3);
         Vector4 v4 = new Vector4(3, 4, 5, 6);
 
-        Vector3Modifier.getInstance()
-                .add(v4, v)
-                .add(v4, v4);
-
-        LOGGER.log(Level.INFO, v4.toString());
+        LOGGER.log(Level.INFO, v3.add(v3).add(v3).add(v4).toString());
     }
 }

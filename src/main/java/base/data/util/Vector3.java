@@ -2,6 +2,7 @@ package base.data.util;
 
 public class Vector3 extends Vector {
 
+    // Calling vector.x is a lot less verbose than vector.points[0]
     protected float x;
     protected float y;
     protected float z;
@@ -17,7 +18,7 @@ public class Vector3 extends Vector {
         this(0, 0, 0);
     }
 
-    public float getPoint(int index) throws IndexOutOfBoundsException {
+    public float getPoint(int index) {
         switch (index) {
             case 0:
                 return x;
@@ -30,7 +31,7 @@ public class Vector3 extends Vector {
         }
     }
 
-    public void setPoint(int index, float value) throws IndexOutOfBoundsException {
+    public void setPoint(int index, float value) {
         switch (index) {
             case 0:
                 x = value;

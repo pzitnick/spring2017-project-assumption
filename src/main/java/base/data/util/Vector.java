@@ -1,8 +1,24 @@
 package base.data.util;
 
-public abstract class Vector {
+public abstract class Vector implements VectorModifier {
 
     protected int numPoints;
+
+    public Vector add(Vector vector) {
+        for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
+            setPoint(curPt, getPoint(curPt) + vector.getPoint(curPt));
+        }
+
+        return this;
+    }
+
+    public Vector sub(Vector vector) {
+        for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
+            setPoint(curPt, getPoint(curPt) - vector.getPoint(curPt));
+        }
+
+        return this;
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
