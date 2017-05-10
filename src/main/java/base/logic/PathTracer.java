@@ -13,10 +13,6 @@ public class PathTracer {
         this.display = display;
     }
 
-    public PathTracer() {
-        this(new Scene(), new Display());
-    }
-
     public Scene getScene() {
         return scene;
     }
