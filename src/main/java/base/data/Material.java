@@ -2,21 +2,31 @@ package base.data;
 
 public class Material {
 
-    private float glossiness;
+    private Color color;
+    private Color emission;
 
-    public Material(float glossiness) {
-        this.glossiness = glossiness;
+    public Material(Color color, Color emission) {
+        this.color = color;
+        this.emission = emission;
     }
 
     public Material() {
-        this(0);
+        this(new Color(), new Color());
     }
 
-    public float getGlossiness() {
-        return glossiness;
+    public Color getColor() {
+        return color;
     }
 
-    public void setGlossiness(float glossiness) {
-        this.glossiness = glossiness;
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getEmission() {
+        return emission;
+    }
+
+    public void setEmission(Color emission) {
+        this.emission = emission;
     }
 }
