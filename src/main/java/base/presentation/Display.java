@@ -12,10 +12,14 @@ public class Display extends Canvas {
     private BufferedImage pixelMap;
 
     public Display(int width, int height) {
-        this.width = width;
-        this.height = height;
+        if (width < 0 || height < 0) {
+            throw new IllegalArgumentException();
+        } else {
+            this.width = width;
+            this.height = height;
 
-        initDisplay();
+            initDisplay();
+        }
     }
 
     private void initDisplay() {
@@ -42,8 +46,12 @@ public class Display extends Canvas {
     }
 
     public void setWidth(int width) {
-        this.width = width;
-        jFrame.setSize(width, height);
+        if (width < 0) {
+            throw new IllegalArgumentException();
+        } else {
+            this.width = width;
+            jFrame.setSize(width, height);
+        }
     }
 
     public int getHeight() {
@@ -51,8 +59,12 @@ public class Display extends Canvas {
     }
 
     public void setHeight(int height) {
-        this.height = height;
-        jFrame.setSize(width, height);
+        if (height < 0) {
+            throw new IllegalArgumentException();
+        } else {
+            this.height = height;
+            jFrame.setSize(width, height);
+        }
     }
 
     public JFrame getjFrame() {
