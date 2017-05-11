@@ -27,7 +27,6 @@ public class Display extends Canvas {
         jFrame.setTitle("Path Tracer");
         jFrame.setSize(width, height);
         jFrame.setResizable(false);
-        jFrame.setVisible(true);
         jFrame.setLocationRelativeTo(null);
         jFrame.add(this);
 
