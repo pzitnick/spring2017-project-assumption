@@ -6,15 +6,6 @@ import org.junit.Test;
 public class DisplayTest extends TestCase {
 
     @Test
-    public void testInitDisplay() {
-        Display display = new Display(300, 300);
-        assertEquals(display.getjFrame().getWidth(), 300);
-        assertEquals(display.getjFrame().getHeight(), 300);
-        assertEquals(display.getPixelMap().getWidth(), 300);
-        assertEquals(display.getPixelMap().getHeight(), 300);
-    }
-
-    @Test
     public void testConstructorException() {
         Display display = null;
         try {

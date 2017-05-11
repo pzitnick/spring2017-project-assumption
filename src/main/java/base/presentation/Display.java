@@ -17,12 +17,10 @@ public class Display extends Canvas {
         } else {
             this.width = width;
             this.height = height;
-
-            initDisplay();
         }
     }
 
-    private void initDisplay() {
+    public void initDisplay() {
         jFrame = new JFrame();
         jFrame.setTitle("Path Tracer");
         jFrame.setSize(width, height);
@@ -49,7 +47,9 @@ public class Display extends Canvas {
             throw new IllegalArgumentException();
         } else {
             this.width = width;
-            jFrame.setSize(width, height);
+            if (jFrame != null) {
+                jFrame.setSize(width, height);
+            }
         }
     }
 
@@ -62,7 +62,9 @@ public class Display extends Canvas {
             throw new IllegalArgumentException();
         } else {
             this.height = height;
-            jFrame.setSize(width, height);
+            if (jFrame != null) {
+                jFrame.setSize(width, height);
+            }
         }
     }
 
