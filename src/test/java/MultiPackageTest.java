@@ -8,25 +8,21 @@ import com.openpojo.validation.rule.impl.GetterMustExistRule;
 import com.openpojo.validation.rule.impl.SetterMustExistRule;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
-import org.junit.Before;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.util.List;
 
-public class MultiPackageTest {
+public class MultiPackageTest extends TestCase {
 
-    private String packageName = "base";
-    private List<PojoClass> pojoClasses;
-
-    @Before
-    public void setup() {
-        FilterChain filter = new FilterChain(new FilterClassName("Display"), new FilterClassName("PathTracer"));
-
-        pojoClasses = PojoClassFactory.getPojoClassesRecursively(packageName, filter);
-    }
+    private static final String PACKAGE_NAME = "base";
 
     @Test
-    public void validate() {
+    public void testPojo() {
+        FilterChain filter = new FilterChain(new FilterClassName("Display"), new FilterClassName("PathTracer"));
+
+        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(PACKAGE_NAME, filter);
+
         for (PojoClass pojoClass : pojoClasses) {
             Validator validator = ValidatorBuilder.create()
                     .with(new SetterMustExistRule(), new GetterMustExistRule())
