@@ -40,8 +40,11 @@ public class Display extends Canvas {
 
     public void setPixel(int x, int y, float r, float g, float b) {
         r = Math.min(255, r);
+        r = Math.max(0, r);
         g = Math.min(255, g);
+        g = Math.max(0, g);
         b = Math.min(255, b);
+        b = Math.max(0, b);
 
         pixelMap.setRGB(x, y, new Color((int) Math.floor(r), (int) Math.floor(g), (int) Math.floor(b)).getRGB());
     }

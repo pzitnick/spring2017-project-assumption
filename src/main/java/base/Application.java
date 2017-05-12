@@ -34,11 +34,12 @@ public class Application {
         Sphere[] spheres = new Sphere[]{leftWall, rightWall, floor, ceil, backWall, leftSphere, rightSphere, lightSource};*/
 
         // Scene 2
-        Sphere leftWall = new Sphere(new Material(new Color(0.75f, 0.25f, 0.25f), new Color(1f, 0, 0)), new Vector3(-201.2f, 0f, 0f), 200f);
-        Sphere rightWall = new Sphere(new Material(new Color(0.25f, 0.25f, 0.75f), new Color(0, 0, 1f)), new Vector3(201.2f, 0f, 0f), 200f);
+        Sphere leftWall = new Sphere(new Material(new Color(0.75f, 0.25f, 0.25f), new Color(1f, 1f, 1f)), new Vector3(-201.2f, 0f, 0f), 200f);
+        Sphere rightWall = new Sphere(new Material(new Color(0.25f, 0.25f, 0.75f), new Color(1f, 1f, 1f)), new Vector3(201.2f, 0f, 0f), 200f);
         Sphere floor = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(0f, -200.4f, 0f), 200f);
-        Sphere ceil = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(0f, 200.4f, 0f), 200f);
+        //Sphere ceil = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(0f, 200.4f, 0f), 200f);
         Sphere backWall = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(0f, 0f, -200.4f), 200f);
+        Sphere frontWall = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color(1f, 1f, 1f)), new Vector3(0f, 0f, 202f), 200f);
         Sphere leftSphere = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(-0.20f, -0.3f, -0.20f), 0.16f);
         Sphere rightSphere = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(0.20f, -0.3f, -0.20f), 0.16f);
         Sphere frontSphere = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(-0.20f, -0.3f, 0.20f), 0.16f);
@@ -46,8 +47,8 @@ public class Application {
         Sphere topSphere = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(0f, -0.3f, 0.4f), 0.16f);
         Sphere seemsGoodSphere = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(0f, -0.3f, -0.4f), 0.16f);
         Sphere centerSphere = new Sphere(new Material(new Color(0.9f, 0.8f, 0.7f), new Color()), new Vector3(0f, 0.1f, 0f), 0.16f);
-        Sphere centerLight = new Sphere(new Material(new Color(), new Color(15f, 15f, 15f)), new Vector3(0, -0.5f, 0), 0.16f);
-        Sphere[] spheres = new Sphere[]{leftWall, rightWall, floor, ceil, backWall, leftSphere, rightSphere, frontSphere, backSphere, topSphere, centerSphere, centerLight, seemsGoodSphere};
+        Sphere centerLight = new Sphere(new Material(new Color(), new Color(1f, 10f, 10f)), new Vector3(0, -0.5f, 0), 0.16f);
+        Sphere[] spheres = new Sphere[]{leftWall, rightWall, floor, backWall, leftSphere, rightSphere, frontSphere, backSphere, topSphere, centerSphere, centerLight, seemsGoodSphere, frontWall};
 
         Scene scene = new Scene();
         for (Sphere sphere : spheres) {
