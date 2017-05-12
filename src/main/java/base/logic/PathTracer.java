@@ -45,7 +45,7 @@ public class PathTracer {
 
     public void render() {
         long localWorkSize = Math.min(256, device.getMaxWorkGroupSize());
-        long globalWorkSize = display.getWidth() * display.getHeight();
+        long globalWorkSize = (long)display.getWidth() * (long)display.getHeight();
         if (globalWorkSize % localWorkSize != 0) {
             globalWorkSize = (globalWorkSize / localWorkSize + 1) * localWorkSize;
         }

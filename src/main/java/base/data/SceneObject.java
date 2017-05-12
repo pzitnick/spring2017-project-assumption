@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class SceneObject {
 
-    public int numFloats = 0;
+    private int numFloats = 0;
 
     private Material material;
     private Vector position;

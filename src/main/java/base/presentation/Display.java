@@ -9,7 +9,7 @@ public class Display extends Canvas {
     private int width;
     private int height;
     private JFrame jFrame;
-    private BufferedImage pixelMap;
+    private transient BufferedImage pixelMap;
 
     public Display(int width, int height) {
         if (width < 0 || height < 0) {
