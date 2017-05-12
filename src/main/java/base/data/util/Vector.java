@@ -30,6 +30,8 @@ public abstract class Vector implements VectorModifier {
             floats.add(getPoint(curPt));
         }
 
+        floats.add(0f);
+
         return floats;
     }
 

@@ -11,7 +11,7 @@ public class Sphere extends SceneObject {
     public Sphere(Material material, Vector3 position, float radius) {
         setMaterial(material);
         setPosition(position);
-        setNumFloats(10);
+        setNumFloats(16);
 
         this.radius = radius;
     }

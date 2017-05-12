@@ -38,6 +38,14 @@ public class Display extends Canvas {
         graphics.drawImage(pixelMap, 0, 0, width, height, null);
     }
 
+    public void setPixel(int x, int y, float r, float g, float b) {
+        r = Math.min(255, r);
+        g = Math.min(255, g);
+        b = Math.min(255, b);
+
+        pixelMap.setRGB(x, y, new Color((int) Math.floor(r), (int) Math.floor(g), (int) Math.floor(b)).getRGB());
+    }
+
     public int getWidth() {
         return width;
     }

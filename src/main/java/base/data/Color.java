@@ -24,6 +24,7 @@ public class Color {
         floats.add(red);
         floats.add(green);
         floats.add(blue);
+        floats.add(0f);
 
         return floats;
     }

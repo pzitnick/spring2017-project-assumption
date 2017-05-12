@@ -17,6 +17,10 @@ public class Scene {
         this(new Camera(), new ArrayList<SceneObject>());
     }
 
+    public void add(SceneObject object) {
+        sceneObjects.add(object);
+    }
+
     public Camera getCamera() {
         return camera;
     }
