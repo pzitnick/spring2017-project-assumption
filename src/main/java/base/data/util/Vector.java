@@ -1,5 +1,8 @@
 package base.data.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Vector implements VectorModifier {
 
     protected int numPoints;
@@ -18,6 +21,16 @@ public abstract class Vector implements VectorModifier {
         }
 
         return this;
+    }
+
+    public List<Float> toFloatList() {
+        List<Float> floats = new ArrayList<>();
+
+        for (int curPt = 0; curPt < numPoints; ++curPt) {
+            floats.add(getPoint(curPt));
+        }
+
+        return floats;
     }
 
     public String toString() {

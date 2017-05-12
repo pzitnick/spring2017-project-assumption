@@ -1,5 +1,9 @@
 package base.data;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 public class Material {
 
     private Color color;
@@ -12,6 +16,13 @@ public class Material {
 
     public Material() {
         this(new Color(), new Color());
+    }
+
+    public List<Float> toFloatList() {
+        List<Float> floats = color.toFloatList();
+        floats.addAll(emission.toFloatList());
+
+        return floats;
     }
 
     public Color getColor() {

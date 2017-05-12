@@ -1,5 +1,8 @@
 package base.data.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Vector3 extends Vector {
 
     // Calling vector.x is a lot less verbose than vector.points[0]

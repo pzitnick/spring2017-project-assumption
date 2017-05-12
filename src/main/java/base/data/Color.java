@@ -1,5 +1,8 @@
 package base.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Color {
 
     private float red;
@@ -14,6 +17,15 @@ public class Color {
 
     public Color() {
         this(0, 0, 0);
+    }
+
+    public List<Float> toFloatList() {
+        List<Float> floats = new ArrayList<>();
+        floats.add(red);
+        floats.add(green);
+        floats.add(blue);
+
+        return floats;
     }
 
     public float getRed() {
