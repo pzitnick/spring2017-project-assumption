@@ -27,6 +27,7 @@ public class Display extends Canvas {
         jFrame.setResizable(false);
         jFrame.setLocationRelativeTo(null);
         jFrame.add(this);
+        jFrame.setVisible(true);
 
         pixelMap = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
     }
@@ -47,6 +48,7 @@ public class Display extends Canvas {
         b = Math.max(0, b);
 
         pixelMap.setRGB(x, y, new Color((int) Math.floor(r), (int) Math.floor(g), (int) Math.floor(b)).getRGB());
+        repaint();
     }
 
     public int getWidth() {

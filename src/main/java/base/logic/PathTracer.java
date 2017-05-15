@@ -70,10 +70,9 @@ public class PathTracer {
         kernel.setArg(4, out);
         kernel.rewind();
 
-        queue.putWriteBuffer(in, true);
-        queue.put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize);
-        queue.putReadBuffer(out, false);
-        queue.finish();
+        queue.putWriteBuffer(in, true)
+            .put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize)
+            .putReadBuffer(out, false);
 
         int x = 0;
         int y = 0;
@@ -90,8 +89,6 @@ public class PathTracer {
                 y++;
             }
         }
-
-        display.getjFrame().setVisible(true);
     }
 
     public Scene getScene() {
