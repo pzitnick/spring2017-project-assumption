@@ -14,19 +14,21 @@ public class PathTracer {
     private static final String KERNEL_SRC = "/opencl/PathTracer.cl";
     private static final String KERNEL = "path_trace";
 
-    private final CLContext context;
-    private final CLDevice device;
-    private final CLProgram program;
-    private final CLCommandQueue queue;
-    private final CLKernel kernel;
+    private CLContext context;
+    private CLDevice device;
+    private CLProgram program;
+    private CLCommandQueue queue;
+    private CLKernel kernel;
 
     private Scene scene;
     private Display display;
 
-    public PathTracer(Scene scene, Display display) throws IOException {
+    public PathTracer(Scene scene, Display display) {
         this.scene = scene;
         this.display = display;
+    }
 
+    public void init() throws IOException {
         context = CLContext.create();
         LOGGER.info(context.toString());
 

@@ -58,6 +58,7 @@ public class Application {
         display.initDisplay();
 
         PathTracer pt = new PathTracer(scene, display);
+        pt.init();
         pt.render();
     }
 

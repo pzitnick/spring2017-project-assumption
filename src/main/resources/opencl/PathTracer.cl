@@ -156,5 +156,16 @@ __kernel void path_trace(__constant Sphere* spheres, const int num_spheres, cons
         color += trace(spheres, num_spheres, &ray, &seed0, &seed1) * inv;
     }
 
-    output[id] = color * 255;
+    color *= 255;
+    if (color.x > 255) {
+        color.x = 255;
+    }
+    if (color.y > 255) {
+        color.y = 255;
+    }
+    if (color.z > 255) {
+        color.z = 255;
+    }
+
+    output[id] = color;
 }
