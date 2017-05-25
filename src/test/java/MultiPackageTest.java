@@ -1,4 +1,8 @@
+import base.logic.PathTracer;
 import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.filters.FilterBasedOnInheritance;
+import com.openpojo.reflection.filters.FilterClassName;
+import com.openpojo.reflection.filters.FilterPackageInfo;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.Validator;
 import com.openpojo.validation.ValidatorBuilder;
@@ -17,7 +21,9 @@ public class MultiPackageTest extends TestCase {
 
     @Test
     public void testPojo() {
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(PACKAGE_NAME, null);
+        FilterClassName filter = new FilterClassName("");
+
+        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(PACKAGE_NAME, filter);
 
         for (PojoClass pojoClass : pojoClasses) {
             Validator validator = ValidatorBuilder.create()
