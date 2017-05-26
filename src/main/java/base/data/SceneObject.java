@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SceneObject implements Serializable {
+public abstract class SceneObject {
 
     private int numFloats = 0;
 

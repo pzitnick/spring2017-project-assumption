@@ -67,18 +67,8 @@ public class PathTracer {
             globalWorkSize = (globalWorkSize / localWorkSize + 1) * localWorkSize;
         }
 
-        input = context.createFloatBuffer(scene.getSceneObjects().get(0).getNumFloats() * scene.getSceneObjects().size(), CLMemory.Mem.READ_ONLY);
+        input = scene.createFloatBuffer(context);
         output = context.createFloatBuffer(display.getWidth() * display.getHeight() * 4, CLMemory.Mem.WRITE_ONLY);
-
-        for (int i = 0; i < scene.getSceneObjects().size(); ++i) {
-            for (float f : scene.getSceneObjects().get(i).toFloatList()) {
-                input.getBuffer().put(f);
-            }
-            input.getBuffer().put(0f);
-            input.getBuffer().put(0f);
-            input.getBuffer().put(0f);
-        }
-        input.getBuffer().rewind();
 
         kernel.setArg(0, input)
                 .setArg(1, scene.getSceneObjects().size())
@@ -94,6 +84,8 @@ public class PathTracer {
         if (hasInit) {
             int frame = 1;
             do {
+                LOGGER.info("Rendering pass " + frame);
+
                 kernel.setArg(4, frame++)
                         .rewind();
 
