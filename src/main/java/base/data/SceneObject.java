@@ -2,10 +2,11 @@ package base.data;
 
 import base.data.util.Vector;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SceneObject {
+public abstract class SceneObject implements Serializable {
 
     private int numFloats = 0;
 
@@ -44,5 +45,4 @@ public abstract class SceneObject {
     public void setNumFloats(int numFloats) {
         this.numFloats = numFloats;
     }
-
 }

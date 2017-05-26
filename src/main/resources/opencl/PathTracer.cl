@@ -1,6 +1,6 @@
 __constant float EPSILON = 0.00003f;
 __constant float PI = 3.14159265359f;
-__constant int SAMPLES = 512;
+__constant int SAMPLES = 16;
 __constant int BOUNCES = 8;
 
 typedef struct Sphere {

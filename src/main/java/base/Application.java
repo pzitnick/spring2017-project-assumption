@@ -59,7 +59,7 @@ public class Application {
 
         PathTracer pt = new PathTracer(scene, display);
         pt.init();
-        pt.render();
+        pt.render(true);
     }
 
 }

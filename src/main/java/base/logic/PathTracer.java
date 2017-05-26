@@ -14,19 +14,29 @@ public class PathTracer {
     private static final Logger LOGGER = Logger.getLogger(PathTracer.class.getName());
     private static final String KERNEL_SRC = "/opencl/PathTracer.cl";
     private static final String KERNEL = "path_trace";
-
+    // OpenCL variables
     private CLContext context;
     private CLDevice device;
     private CLProgram program;
     private CLCommandQueue queue;
     private CLKernel kernel;
+    // Work sizes of the device
+    private long localWorkSize;
+    private long globalWorkSize;
 
     private Scene scene;
     private Display display;
 
+    private boolean hasInit;
+
+    private CLBuffer<FloatBuffer> input;
+    private CLBuffer<FloatBuffer> output;
+
     public PathTracer(Scene scene, Display display) {
         this.scene = scene;
         this.display = display;
+
+        hasInit = false;
     }
 
     public void init() throws IOException {
@@ -44,66 +54,75 @@ public class PathTracer {
 
         kernel = program.createCLKernel(KERNEL);
         LOGGER.info(kernel.toString());
+
+        prepKernel();
+
+        hasInit = true;
     }
 
-    public void render() {
-        long localWorkSize = Math.min(256, device.getMaxWorkGroupSize());
-        long globalWorkSize = (long) display.getWidth() * (long) display.getHeight();
+    private void prepKernel() {
+        localWorkSize = Math.min(256, device.getMaxWorkGroupSize());
+        globalWorkSize = (long) display.getWidth() * (long) display.getHeight();
         if (globalWorkSize % localWorkSize != 0) {
             globalWorkSize = (globalWorkSize / localWorkSize + 1) * localWorkSize;
         }
 
-        CLBuffer<FloatBuffer> in = context.createFloatBuffer(scene.getSceneObjects().get(0).getNumFloats() * scene.getSceneObjects().size(), CLMemory.Mem.READ_ONLY);
-        CLBuffer<FloatBuffer> out = context.createFloatBuffer(display.getWidth() * display.getHeight() * 4, CLMemory.Mem.WRITE_ONLY);
+        input = context.createFloatBuffer(scene.getSceneObjects().get(0).getNumFloats() * scene.getSceneObjects().size(), CLMemory.Mem.READ_ONLY);
+        output = context.createFloatBuffer(display.getWidth() * display.getHeight() * 4, CLMemory.Mem.WRITE_ONLY);
 
         for (int i = 0; i < scene.getSceneObjects().size(); ++i) {
             for (float f : scene.getSceneObjects().get(i).toFloatList()) {
-                in.getBuffer().put(f);
+                input.getBuffer().put(f);
             }
-            in.getBuffer().put(0f);
-            in.getBuffer().put(0f);
-            in.getBuffer().put(0f);
+            input.getBuffer().put(0f);
+            input.getBuffer().put(0f);
+            input.getBuffer().put(0f);
         }
-        in.getBuffer().rewind();
+        input.getBuffer().rewind();
 
-        kernel.setArg(0, in);
-        kernel.setArg(1, scene.getSceneObjects().size());
-        kernel.setArg(2, display.getWidth());
-        kernel.setArg(3, display.getHeight());
-        kernel.setArg(4, 0);
-        kernel.setArg(5, out);
-        kernel.rewind();
+        kernel.setArg(0, input)
+                .setArg(1, scene.getSceneObjects().size())
+                .setArg(2, display.getWidth())
+                .setArg(3, display.getHeight())
+                .setArg(5, output)
+                .rewind();
 
-        int frame = 1;
+        LOGGER.info("Ready to render...");
+    }
 
-        while (true) {
-            kernel.setArg(4, frame);
-            kernel.rewind();
+    public void render(boolean renderAgain) throws IllegalStateException {
+        if (hasInit) {
+            int frame = 1;
+            do {
+                kernel.setArg(4, frame++)
+                        .rewind();
 
-            queue.putWriteBuffer(in, true)
-                    .put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize)
-                    .putReadBuffer(out, false)
-                    .finish();
+                queue.putWriteBuffer(input, true)
+                        .put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize)
+                        .putReadBuffer(output, false)
+                        .finish();
 
-            int x = 0;
-            int y = 0;
-            while (out.getBuffer().hasRemaining()) {
-                float r = out.getBuffer().get();
-                float g = out.getBuffer().get();
-                float b = out.getBuffer().get();
-                out.getBuffer().get();
+                int x = 0;
+                int y = 0;
+                while (output.getBuffer().hasRemaining()) {
+                    float r = output.getBuffer().get();
+                    float g = output.getBuffer().get();
+                    float b = output.getBuffer().get();
+                    output.getBuffer().get();
 
-                display.setPixel(x, y, r, g, b);
+                    display.setPixel(x, y, r, g, b);
 
-                if (++x >= display.getWidth()) {
-                    x = 0;
-                    y++;
+                    if (++x >= display.getWidth()) {
+                        x = 0;
+                        y++;
+                    }
                 }
-            }
-            display.repaint();
+                display.repaint();
 
-            frame++;
-            out.getBuffer().rewind();
+                output.getBuffer().rewind();
+            } while (renderAgain);
+        } else {
+            throw new IllegalStateException("init() must be called prior to render()");
         }
     }
 

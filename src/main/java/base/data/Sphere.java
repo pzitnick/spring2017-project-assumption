@@ -2,9 +2,10 @@ package base.data;
 
 import base.data.util.Vector3;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Sphere extends SceneObject {
+public class Sphere extends SceneObject implements Serializable {
 
     private float radius;
 
