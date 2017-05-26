@@ -1,5 +1,6 @@
 package base.logic;
 
+import base.data.Material;
 import base.data.Scene;
 import base.presentation.Display;
 import com.jogamp.opencl.*;
@@ -69,27 +70,40 @@ public class PathTracer {
         kernel.setArg(1, scene.getSceneObjects().size());
         kernel.setArg(2, display.getWidth());
         kernel.setArg(3, display.getHeight());
-        kernel.setArg(4, out);
+        kernel.setArg(4, 0);
+        kernel.setArg(5, out);
         kernel.rewind();
 
-        queue.putWriteBuffer(in, true)
-                .put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize)
-                .putReadBuffer(out, false);
+        int frame = 1;
 
-        int x = 0;
-        int y = 0;
-        while (out.getBuffer().hasRemaining()) {
-            float r = out.getBuffer().get();
-            float g = out.getBuffer().get();
-            float b = out.getBuffer().get();
-            out.getBuffer().get();
+        while (true) {
+            kernel.setArg(4, frame);
+            kernel.rewind();
 
-            display.setPixel(x, y, r, g, b);
+            queue.putWriteBuffer(in, true)
+                    .put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize)
+                    .putReadBuffer(out, false)
+                    .finish();
 
-            if (++x >= display.getWidth()) {
-                x = 0;
-                y++;
+            int x = 0;
+            int y = 0;
+            while (out.getBuffer().hasRemaining()) {
+                float r = out.getBuffer().get();
+                float g = out.getBuffer().get();
+                float b = out.getBuffer().get();
+                out.getBuffer().get();
+
+                display.setPixel(x, y, r, g, b);
+
+                if (++x >= display.getWidth()) {
+                    x = 0;
+                    y++;
+                }
             }
+            display.repaint();
+
+            frame++;
+            out.getBuffer().rewind();
         }
     }
 

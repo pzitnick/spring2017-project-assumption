@@ -22,7 +22,7 @@ public class Vector3Test extends TestCase {
             v.getPoint(4);
             fail("Expected IndexOutOfBoundsException");
         } catch (IndexOutOfBoundsException e) {
-            assert(true);
+            assert (true);
         }
     }
 
@@ -47,7 +47,7 @@ public class Vector3Test extends TestCase {
             v.setPoint(4, 0f);
             fail("Expected IndexOutOfBoundsException");
         } catch (IndexOutOfBoundsException e) {
-            assert(true);
+            assert (true);
         }
     }
 

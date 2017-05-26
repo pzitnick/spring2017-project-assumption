@@ -16,8 +16,8 @@ typedef struct Ray {
 } Ray;
 
 static float get_random(unsigned int *seed0, unsigned int *seed1) {
-	*seed0 = 12345 * ((*seed0) & 65535) + ((*seed0) >> 16);
-	*seed1 = 54321 * ((*seed1) & 65535) + ((*seed1) >> 16);
+	*seed0 = 36969 * ((*seed0) & 65535) + ((*seed0) >> 16);
+	*seed1 = 18000 * ((*seed1) & 65535) + ((*seed1) >> 16);
 
 	unsigned int ires = ((*seed0) << 16) + (*seed1);
 
@@ -31,12 +31,18 @@ static float get_random(unsigned int *seed0, unsigned int *seed1) {
 	return (res.f - 2.0f) / 2.0f;
 }
 
-Ray createRay(const int xPixel, const int yPixel, const int width, const int height) {
+Ray createRay(const int xPixel, const int yPixel, const int width, const int height, const int* seed0, const int* seed1) {
 
-	float fx = (float)xPixel / (float)width;
-	float fy = (float)yPixel / (float)height;
+    float rand1 = get_random(seed0, seed1);
+    float rand2 = get_random(seed0, seed1);
 
-	float aspect_ratio = (float)(width) / (float)(height);
+    float invWidth = 1.0f / (float)width;
+    float invHeight = 1.0f / (float)height;
+
+	float fx = (float)(xPixel + rand1) * invWidth;
+	float fy = (float)(yPixel + rand2) * invHeight;
+
+	float aspect_ratio = (float)(width) * invHeight;
 	float fx2 = (fx - 0.5f) * aspect_ratio;
 	float fy2 = fy - 0.5f;
 
@@ -138,16 +144,16 @@ float3 trace(__constant Sphere* spheres, const int num_spheres, const Ray* cast,
 	return color;
 }
 
-__kernel void path_trace(__constant Sphere* spheres, const int num_spheres, const int width, const int height, __global float3* output) {
+__kernel void path_trace(__constant Sphere* spheres, const int num_spheres, const int width, const int height, const int frame, __global float3* output) {
     unsigned int id = get_global_id(0);
 
     unsigned int xPixel = id % width;
     unsigned int yPixel = id / width;
 
-    unsigned int seed0 = xPixel;
-    unsigned int seed1 = yPixel;
+    unsigned int seed0 = xPixel * frame;
+    unsigned int seed1 = yPixel * frame;
 
-    Ray ray = createRay(xPixel, yPixel, width, height);
+    Ray ray = createRay(xPixel, yPixel, width, height, &seed0, &seed1);
 
     float3 color = (float3)(0.0f, 0.0f, 0.0f);
     float inv = 1.0f / SAMPLES;
@@ -167,5 +173,5 @@ __kernel void path_trace(__constant Sphere* spheres, const int num_spheres, cons
         color.z = 255;
     }
 
-    output[id] = color;
+    output[id] = (output[id] * (frame - 1) + color) / frame;
 }

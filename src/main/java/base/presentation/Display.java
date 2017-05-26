@@ -41,7 +41,6 @@ public class Display extends Canvas {
 
     public void setPixel(int x, int y, float r, float g, float b) {
         pixelMap.setRGB(x, y, new Color((int) r, (int) g, (int) b).getRGB());
-        repaint();
     }
 
     public int getWidth() {
