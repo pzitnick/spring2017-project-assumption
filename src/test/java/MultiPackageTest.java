@@ -18,7 +18,7 @@ public class MultiPackageTest extends TestCase {
 
   @Test
   public void testPojo() {
-    FilterClassName filter = new FilterClassName("PathTracer");
+    FilterClassName filter = new FilterClassName("");
 
     List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(PACKAGE_NAME, filter);
 
