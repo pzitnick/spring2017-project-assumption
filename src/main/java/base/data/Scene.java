@@ -1,9 +1,11 @@
 package base.data;
 
+import base.logic.FileParser;
 import com.jogamp.opencl.CLBuffer;
 import com.jogamp.opencl.CLContext;
 import com.jogamp.opencl.CLMemory;
 
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,10 @@ public class Scene {
 
   public Scene() {
     this(new Camera(), new ArrayList<>());
+  }
+
+  public void loadScene(String src) throws IOException {
+    sceneObjects = FileParser.getInstance().parseSceneObjects(src);
   }
 
   public CLBuffer<FloatBuffer> createFloatBuffer(CLContext context) {

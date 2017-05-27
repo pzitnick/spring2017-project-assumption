@@ -101,7 +101,7 @@ public class PathTracer {
           float g = output.getBuffer().get();
           float b = output.getBuffer().get();
           output.getBuffer().get();
-          
+
           display.setPixel(x, y, r, g, b);
 
           if (++x >= display.getWidth()) {
