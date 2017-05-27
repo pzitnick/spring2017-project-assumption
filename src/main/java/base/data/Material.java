@@ -56,4 +56,10 @@ public class Material {
     return getEmission() != null ? getEmission().equals(material.getEmission()) : material.getEmission() == null;
   }
 
+  @Override
+  public int hashCode() {
+    int result = getColor() != null ? getColor().hashCode() : 0;
+    result = 31 * result + (getEmission() != null ? getEmission().hashCode() : 0);
+    return result;
+  }
 }

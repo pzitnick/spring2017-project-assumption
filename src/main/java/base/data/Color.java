@@ -65,4 +65,11 @@ public class Color {
     return Float.compare(color.getBlue(), getBlue()) == 0;
   }
 
+  @Override
+  public int hashCode() {
+    int result = (getRed() != +0.0f ? Float.floatToIntBits(getRed()) : 0);
+    result = 31 * result + (getGreen() != +0.0f ? Float.floatToIntBits(getGreen()) : 0);
+    result = 31 * result + (getBlue() != +0.0f ? Float.floatToIntBits(getBlue()) : 0);
+    return result;
+  }
 }
