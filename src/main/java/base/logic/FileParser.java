@@ -36,21 +36,23 @@ public class FileParser {
       String[] tokens = line.split("\\s+(?=[^\\])}]*([\\[({]|$))");
 
       if (tokens.length < MIN_TOKENS) {
-        LOGGER.warning("Illegal SceneObject format on line " + curLine + ".");
+        LOGGER.warning("Illegal SceneObject format on line " + curLine + " (not enough tokens). Skipping...");
         ++curLine;
         continue;
       }
 
-      object = getSceneObjectType(tokens[0]);
+      object = getSceneObjectInstance(tokens[0]);
       if (object == null) {
-        LOGGER.warning("Illegal SceneObject format on line " + curLine + ".");
+        LOGGER.warning("Illegal SceneObject format on line " + curLine +
+            " (no supported SceneObject found). Skipping...");
         ++curLine;
         continue;
       }
 
       for (int curTok = 1; curTok < MIN_TOKENS; ++curTok) {
         if (!addSceneObjectParams(object, tokens, curTok)) {
-          LOGGER.warning("Illegal SceneObject format on line " + curLine + ".");
+          LOGGER.warning("Illegal SceneObject format on line " + curLine +
+              " (no supported parameter for SceneObject found). Skipping...");
           ++curLine;
           continue;
         }
@@ -71,16 +73,28 @@ public class FileParser {
       String[] values = valueString[0].split(",");
       switch (subToken[0]) {
         case "color":
+          if (values.length != 3) {
+            return false;
+          }
+
           sceneObject.getMaterial().getColor().setRed(Float.parseFloat(values[0].trim()));
           sceneObject.getMaterial().getColor().setGreen(Float.parseFloat(values[1].trim()));
           sceneObject.getMaterial().getColor().setBlue(Float.parseFloat(values[2].trim()));
           break;
         case "emission":
+          if (values.length != 3) {
+            return false;
+          }
+
           sceneObject.getMaterial().getEmission().setRed(Float.parseFloat(values[0].trim()));
           sceneObject.getMaterial().getEmission().setGreen(Float.parseFloat(values[1].trim()));
           sceneObject.getMaterial().getEmission().setBlue(Float.parseFloat(values[2].trim()));
           break;
         case "position":
+          if (values.length != 3) {
+            return false;
+          }
+
           sceneObject.getPosition().setPoint(0, Float.parseFloat(values[0].trim()));
           sceneObject.getPosition().setPoint(1, Float.parseFloat(values[1].trim()));
           sceneObject.getPosition().setPoint(2, Float.parseFloat(values[2].trim()));
@@ -96,7 +110,8 @@ public class FileParser {
     return true;
   }
 
-  private SceneObject getSceneObjectType(String object) {
+  private SceneObject getSceneObjectInstance(String object) {
+    // To be populated with more object types as they are implemented
     switch (object) {
       case "sphere":
         return new Sphere();

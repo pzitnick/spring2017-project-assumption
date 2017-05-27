@@ -52,4 +52,17 @@ public class Color {
   public void setBlue(float blue) {
     this.blue = blue;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Color)) return false;
+
+    Color color = (Color) o;
+
+    if (Float.compare(color.getRed(), getRed()) != 0) return false;
+    if (Float.compare(color.getGreen(), getGreen()) != 0) return false;
+    return Float.compare(color.getBlue(), getBlue()) == 0;
+  }
+
 }

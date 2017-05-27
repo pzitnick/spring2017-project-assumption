@@ -38,4 +38,22 @@ public class Material {
   public void setEmission(Color emission) {
     this.emission = emission;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Material)) {
+      return false;
+    }
+
+    Material material = (Material) o;
+
+    if (getColor() != null ? !getColor().equals(material.getColor()) : material.getColor() != null) {
+      return false;
+    }
+    return getEmission() != null ? getEmission().equals(material.getEmission()) : material.getEmission() == null;
+  }
+
 }

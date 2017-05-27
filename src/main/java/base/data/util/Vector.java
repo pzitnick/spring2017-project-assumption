@@ -51,6 +51,14 @@ public abstract class Vector implements VectorModifier {
     return sb.toString();
   }
 
+  public Vector setTo(Vector vector) {
+    for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
+      setPoint(curPt, vector.getPoint(curPt));
+    }
+
+    return this;
+  }
+
   public abstract float getPoint(int index);
 
   public abstract void setPoint(int index, float value);
@@ -61,5 +69,34 @@ public abstract class Vector implements VectorModifier {
 
   public void setNumPoints(int numPoints) {
     this.numPoints = numPoints;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Vector)) {
+      return false;
+    }
+
+    Vector vector = (Vector) o;
+
+    if (getNumPoints() != ((Vector) o).getNumPoints()) {
+      return false;
+    }
+
+    for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
+      if (getPoint(curPt) != ((Vector) o).getPoint(curPt)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    return getNumPoints();
   }
 }

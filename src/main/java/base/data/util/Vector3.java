@@ -46,4 +46,25 @@ public class Vector3 extends Vector {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Vector3)) return false;
+    if (!super.equals(o)) return false;
+
+    Vector3 vector3 = (Vector3) o;
+
+    if (Float.compare(vector3.x, x) != 0) return false;
+    if (Float.compare(vector3.y, y) != 0) return false;
+    return Float.compare(vector3.z, z) == 0;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = (x != +0.0f ? Float.floatToIntBits(x) : 0);
+    result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
+    result = 31 * result + (z != +0.0f ? Float.floatToIntBits(z) : 0);
+    return result;
+  }
 }
