@@ -5,51 +5,51 @@ import java.util.List;
 
 public class Color {
 
-    private float red;
-    private float green;
-    private float blue;
+  private float red;
+  private float green;
+  private float blue;
 
-    public Color(float red, float green, float blue) {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
-    }
+  public Color(float red, float green, float blue) {
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+  }
 
-    public Color() {
-        this(0, 0, 0);
-    }
+  public Color() {
+    this(0, 0, 0);
+  }
 
-    public List<Float> toFloatList() {
-        List<Float> floats = new ArrayList<>();
-        floats.add(red);
-        floats.add(green);
-        floats.add(blue);
-        floats.add(0f);
+  public List<Float> toFloatList() {
+    List<Float> floats = new ArrayList<>();
+    floats.add(red);
+    floats.add(green);
+    floats.add(blue);
+    floats.add(0f);
 
-        return floats;
-    }
+    return floats;
+  }
 
-    public float getRed() {
-        return red;
-    }
+  public float getRed() {
+    return red;
+  }
 
-    public void setRed(float red) {
-        this.red = red;
-    }
+  public void setRed(float red) {
+    this.red = red;
+  }
 
-    public float getGreen() {
-        return green;
-    }
+  public float getGreen() {
+    return green;
+  }
 
-    public void setGreen(float green) {
-        this.green = green;
-    }
+  public void setGreen(float green) {
+    this.green = green;
+  }
 
-    public float getBlue() {
-        return blue;
-    }
+  public float getBlue() {
+    return blue;
+  }
 
-    public void setBlue(float blue) {
-        this.blue = blue;
-    }
+  public void setBlue(float blue) {
+    this.blue = blue;
+  }
 }

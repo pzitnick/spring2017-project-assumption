@@ -5,61 +5,61 @@ import java.util.List;
 
 public abstract class Vector implements VectorModifier {
 
-    protected int numPoints;
+  protected int numPoints;
 
-    public Vector add(Vector vector) {
-        for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
-            setPoint(curPt, getPoint(curPt) + vector.getPoint(curPt));
-        }
-
-        return this;
+  public Vector add(Vector vector) {
+    for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
+      setPoint(curPt, getPoint(curPt) + vector.getPoint(curPt));
     }
 
-    public Vector sub(Vector vector) {
-        for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
-            setPoint(curPt, getPoint(curPt) - vector.getPoint(curPt));
-        }
+    return this;
+  }
 
-        return this;
+  public Vector sub(Vector vector) {
+    for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
+      setPoint(curPt, getPoint(curPt) - vector.getPoint(curPt));
     }
 
-    public List<Float> toFloatList() {
-        List<Float> floats = new ArrayList<>();
+    return this;
+  }
 
-        for (int curPt = 0; curPt < numPoints; ++curPt) {
-            floats.add(getPoint(curPt));
-        }
+  public List<Float> toFloatList() {
+    List<Float> floats = new ArrayList<>();
 
-        floats.add(0f);
-
-        return floats;
+    for (int curPt = 0; curPt < numPoints; ++curPt) {
+      floats.add(getPoint(curPt));
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
+    floats.add(0f);
 
-        sb.append(this.getClass().toString());
-        sb.append("(" + hashCode() + ")[");
-        for (int curPt = 0; curPt < numPoints; ++curPt) {
-            if (curPt < numPoints - 1) {
-                sb.append(String.format("%.2f, ", getPoint(curPt)));
-            } else {
-                sb.append(String.format("%.2f]", getPoint(curPt)));
-            }
-        }
+    return floats;
+  }
 
-        return sb.toString();
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append(this.getClass().toString());
+    sb.append("(" + hashCode() + ")[");
+    for (int curPt = 0; curPt < numPoints; ++curPt) {
+      if (curPt < numPoints - 1) {
+        sb.append(String.format("%.2f, ", getPoint(curPt)));
+      } else {
+        sb.append(String.format("%.2f]", getPoint(curPt)));
+      }
     }
 
-    public abstract float getPoint(int index);
+    return sb.toString();
+  }
 
-    public abstract void setPoint(int index, float value);
+  public abstract float getPoint(int index);
 
-    public int getNumPoints() {
-        return numPoints;
-    }
+  public abstract void setPoint(int index, float value);
 
-    public void setNumPoints(int numPoints) {
-        this.numPoints = numPoints;
-    }
+  public int getNumPoints() {
+    return numPoints;
+  }
+
+  public void setNumPoints(int numPoints) {
+    this.numPoints = numPoints;
+  }
 }

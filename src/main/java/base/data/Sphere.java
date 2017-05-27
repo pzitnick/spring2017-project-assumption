@@ -2,38 +2,37 @@ package base.data;
 
 import base.data.util.Vector3;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class Sphere extends SceneObject {
 
-    private float radius;
+  private float radius;
 
-    public Sphere(Material material, Vector3 position, float radius) {
-        setMaterial(material);
-        setPosition(position);
-        setNumFloats(16);
+  public Sphere(Material material, Vector3 position, float radius) {
+    setMaterial(material);
+    setPosition(position);
+    setNumFloats(16);
 
-        this.radius = radius;
-    }
+    this.radius = radius;
+  }
 
-    public Sphere() {
-        this(new Material(), new Vector3(), 0);
-    }
+  public Sphere() {
+    this(new Material(), new Vector3(), 0);
+  }
 
-    @Override
-    public List<Float> toFloatList() {
-        List<Float> floatList = super.toFloatList();
-        floatList.add(radius);
+  @Override
+  public List<Float> toFloatList() {
+    List<Float> floatList = super.toFloatList();
+    floatList.add(radius);
 
-        return floatList;
-    }
+    return floatList;
+  }
 
-    public float getRadius() {
-        return radius;
-    }
+  public float getRadius() {
+    return radius;
+  }
 
-    public void setRadius(float radius) {
-        this.radius = radius;
-    }
+  public void setRadius(float radius) {
+    this.radius = radius;
+  }
 }

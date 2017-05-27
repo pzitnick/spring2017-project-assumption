@@ -13,26 +13,26 @@ import java.util.logging.Logger;
 
 public class MultiPackageTest extends TestCase {
 
-    private static final Logger LOGGER = Logger.getLogger(MultiPackageTest.class.getName());
-    private static final String PACKAGE_NAME = "base";
+  private static final Logger LOGGER = Logger.getLogger(MultiPackageTest.class.getName());
+  private static final String PACKAGE_NAME = "base";
 
-    @Test
-    public void testPojo() {
-        FilterClassName filter = new FilterClassName("");
+  @Test
+  public void testPojo() {
+    FilterClassName filter = new FilterClassName("PathTracer");
 
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(PACKAGE_NAME, filter);
+    List<PojoClass> pojoClasses = PojoClassFactory.getPojoClassesRecursively(PACKAGE_NAME, filter);
 
-        for (PojoClass pojoClass : pojoClasses) {
-            Validator validator = ValidatorBuilder.create()
-                    .with(new SetterTester(), new GetterTester())
-                    .build();
+    for (PojoClass pojoClass : pojoClasses) {
+      Validator validator = ValidatorBuilder.create()
+          .with(new SetterTester(), new GetterTester())
+          .build();
 
-            try {
-                validator.validate(pojoClass);
-            } catch (Exception e) {
-                LOGGER.info(e.getMessage());
-            }
-        }
+      try {
+        validator.validate(pojoClass);
+      } catch (Exception e) {
+        LOGGER.info(e.getMessage());
+      }
     }
+  }
 
 }

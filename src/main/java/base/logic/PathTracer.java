@@ -1,6 +1,5 @@
 package base.logic;
 
-import base.data.Material;
 import base.data.Scene;
 import base.presentation.Display;
 import com.jogamp.opencl.*;
@@ -11,166 +10,167 @@ import java.util.logging.Logger;
 
 public class PathTracer {
 
-    private static final Logger LOGGER = Logger.getLogger(PathTracer.class.getName());
-    private static final String KERNEL_SRC = "/opencl/PathTracer.cl";
-    private static final String KERNEL = "path_trace";
-    // OpenCL variables
-    private CLContext context;
-    private CLDevice device;
-    private CLProgram program;
-    private CLCommandQueue queue;
-    private CLKernel kernel;
-    // Work sizes of the device
-    private long localWorkSize;
-    private long globalWorkSize;
+  private static final Logger LOGGER = Logger.getLogger(PathTracer.class.getName());
+  private static final String KERNEL_SRC = "/opencl/PathTracer.cl";
+  private static final String KERNEL = "path_trace";
+  // OpenCL variables
+  private CLContext context;
+  private CLDevice device;
+  private CLProgram program;
+  private CLCommandQueue queue;
+  private CLKernel kernel;
+  // Work sizes of the device
+  private long localWorkSize;
+  private long globalWorkSize;
 
-    private Scene scene;
-    private Display display;
+  private Scene scene;
+  private Display display;
 
-    private boolean hasInit;
+  private boolean hasInit;
 
-    private CLBuffer<FloatBuffer> input;
-    private CLBuffer<FloatBuffer> output;
+  private CLBuffer<FloatBuffer> input;
+  private CLBuffer<FloatBuffer> output;
 
-    public PathTracer(Scene scene, Display display) {
-        this.scene = scene;
-        this.display = display;
+  public PathTracer(Scene scene, Display display) {
+    this.scene = scene;
+    this.display = display;
 
-        hasInit = false;
+    hasInit = false;
+  }
+
+  public void init() throws IOException {
+    context = CLContext.create();
+    LOGGER.info(context.toString());
+
+    device = context.getMaxFlopsDevice();
+    LOGGER.info(device.toString());
+
+    queue = device.createCommandQueue();
+    LOGGER.info(queue.toString());
+
+    program = context.createProgram(getClass().getResourceAsStream(KERNEL_SRC)).build();
+    LOGGER.info(program.toString());
+
+    kernel = program.createCLKernel(KERNEL);
+    LOGGER.info(kernel.toString());
+
+    prepKernel();
+
+    hasInit = true;
+  }
+
+  private void prepKernel() {
+    localWorkSize = Math.min(256, device.getMaxWorkGroupSize());
+    globalWorkSize = (long) display.getWidth() * (long) display.getHeight();
+    if (globalWorkSize % localWorkSize != 0) {
+      globalWorkSize = (globalWorkSize / localWorkSize + 1) * localWorkSize;
     }
 
-    public void init() throws IOException {
-        context = CLContext.create();
-        LOGGER.info(context.toString());
+    input = scene.createFloatBuffer(context);
+    output = context.createFloatBuffer(display.getWidth() * display.getHeight() * 4,
+        CLMemory.Mem.WRITE_ONLY);
 
-        device = context.getMaxFlopsDevice();
-        LOGGER.info(device.toString());
+    kernel.setArg(0, input)
+        .setArg(1, scene.getSceneObjects().size())
+        .setArg(2, display.getWidth())
+        .setArg(3, display.getHeight())
+        .setArg(5, output)
+        .rewind();
 
-        queue = device.createCommandQueue();
-        LOGGER.info(queue.toString());
+    LOGGER.info("Ready to render...");
+  }
 
-        program = context.createProgram(getClass().getResourceAsStream(KERNEL_SRC)).build();
-        LOGGER.info(program.toString());
+  public void render(boolean renderAgain) throws IllegalStateException {
+    if (hasInit) {
+      long frame = 1;
+      do {
+        LOGGER.info("Rendering pass " + frame);
 
-        kernel = program.createCLKernel(KERNEL);
-        LOGGER.info(kernel.toString());
+        kernel.setArg(4, frame++)
+            .rewind();
 
-        prepKernel();
+        queue.putWriteBuffer(input, true)
+            .put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize)
+            .putReadBuffer(output, false)
+            .finish();
 
-        hasInit = true;
-    }
+        int x = 0;
+        int y = 0;
+        while (output.getBuffer().hasRemaining()) {
+          float r = output.getBuffer().get();
+          float g = output.getBuffer().get();
+          float b = output.getBuffer().get();
+          output.getBuffer().get();
 
-    private void prepKernel() {
-        localWorkSize = Math.min(256, device.getMaxWorkGroupSize());
-        globalWorkSize = (long) display.getWidth() * (long) display.getHeight();
-        if (globalWorkSize % localWorkSize != 0) {
-            globalWorkSize = (globalWorkSize / localWorkSize + 1) * localWorkSize;
+          display.setPixel(x, y, r, g, b);
+
+          if (++x >= display.getWidth()) {
+            x = 0;
+            y++;
+          }
         }
+        display.repaint();
 
-        input = scene.createFloatBuffer(context);
-        output = context.createFloatBuffer(display.getWidth() * display.getHeight() * 4, CLMemory.Mem.WRITE_ONLY);
-
-        kernel.setArg(0, input)
-                .setArg(1, scene.getSceneObjects().size())
-                .setArg(2, display.getWidth())
-                .setArg(3, display.getHeight())
-                .setArg(5, output)
-                .rewind();
-
-        LOGGER.info("Ready to render...");
+        output.getBuffer().rewind();
+      } while (renderAgain);
+    } else {
+      throw new IllegalStateException("init() must be called prior to render()");
     }
+  }
 
-    public void render(boolean renderAgain) throws IllegalStateException {
-        if (hasInit) {
-            int frame = 1;
-            do {
-                LOGGER.info("Rendering pass " + frame);
+  public Scene getScene() {
+    return scene;
+  }
 
-                kernel.setArg(4, frame++)
-                        .rewind();
+  public void setScene(Scene scene) {
+    this.scene = scene;
+  }
 
-                queue.putWriteBuffer(input, true)
-                        .put1DRangeKernel(kernel, 0, globalWorkSize, localWorkSize)
-                        .putReadBuffer(output, false)
-                        .finish();
+  public Display getDisplay() {
+    return display;
+  }
 
-                int x = 0;
-                int y = 0;
-                while (output.getBuffer().hasRemaining()) {
-                    float r = output.getBuffer().get();
-                    float g = output.getBuffer().get();
-                    float b = output.getBuffer().get();
-                    output.getBuffer().get();
+  public void setDisplay(Display display) {
+    this.display = display;
+  }
 
-                    display.setPixel(x, y, r, g, b);
+  public CLContext getContext() {
+    return context;
+  }
 
-                    if (++x >= display.getWidth()) {
-                        x = 0;
-                        y++;
-                    }
-                }
-                display.repaint();
+  public void setContext(CLContext context) {
+    this.context = context;
+  }
 
-                output.getBuffer().rewind();
-            } while (renderAgain);
-        } else {
-            throw new IllegalStateException("init() must be called prior to render()");
-        }
-    }
+  public CLDevice getDevice() {
+    return device;
+  }
 
-    public Scene getScene() {
-        return scene;
-    }
+  public void setDevice(CLDevice device) {
+    this.device = device;
+  }
 
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
+  public CLProgram getProgram() {
+    return program;
+  }
 
-    public Display getDisplay() {
-        return display;
-    }
+  public void setProgram(CLProgram program) {
+    this.program = program;
+  }
 
-    public void setDisplay(Display display) {
-        this.display = display;
-    }
+  public CLCommandQueue getQueue() {
+    return queue;
+  }
 
-    public CLContext getContext() {
-        return context;
-    }
+  public void setQueue(CLCommandQueue queue) {
+    this.queue = queue;
+  }
 
-    public void setContext(CLContext context) {
-        this.context = context;
-    }
+  public CLKernel getKernel() {
+    return kernel;
+  }
 
-    public CLDevice getDevice() {
-        return device;
-    }
-
-    public void setDevice(CLDevice device) {
-        this.device = device;
-    }
-
-    public CLProgram getProgram() {
-        return program;
-    }
-
-    public void setProgram(CLProgram program) {
-        this.program = program;
-    }
-
-    public CLCommandQueue getQueue() {
-        return queue;
-    }
-
-    public void setQueue(CLCommandQueue queue) {
-        this.queue = queue;
-    }
-
-    public CLKernel getKernel() {
-        return kernel;
-    }
-
-    public void setKernel(CLKernel kernel) {
-        this.kernel = kernel;
-    }
+  public void setKernel(CLKernel kernel) {
+    this.kernel = kernel;
+  }
 }

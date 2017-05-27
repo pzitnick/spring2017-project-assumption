@@ -144,7 +144,7 @@ float3 trace(__constant Sphere* spheres, const int num_spheres, const Ray* cast,
 	return color;
 }
 
-__kernel void path_trace(__constant Sphere* spheres, const int num_spheres, const int width, const int height, const int frame, __global float3* output) {
+__kernel void path_trace(__constant Sphere* spheres, const int num_spheres, const int width, const int height, const long frame, __global float3* output) {
     unsigned int id = get_global_id(0);
 
     unsigned int xPixel = id % width;
