@@ -53,8 +53,4 @@ public class Vector4 extends Vector {
         throw new IndexOutOfBoundsException();
     }
   }
-
-  public Vector4 getConjugate() {
-    return new Vector4(w, -x, -y, -z);
-  }
 }
