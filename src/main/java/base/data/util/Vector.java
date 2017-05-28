@@ -27,7 +27,7 @@ public abstract class Vector implements VectorModifier {
     List<Float> floats = new ArrayList<>();
 
     for (int curPt = 0; curPt < numPoints; ++curPt) {
-      floats.add((float)getPoint((curPt)));
+      floats.add((float) getPoint((curPt)));
     }
 
     floats.add(0f);

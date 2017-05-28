@@ -27,7 +27,7 @@ public class Sphere extends SceneObject {
   @Override
   public List<Float> toFloatList() {
     List<Float> floatList = super.toFloatList();
-    floatList.add((float)radius);
+    floatList.add((float) radius);
 
     return floatList;
   }
@@ -38,22 +38,6 @@ public class Sphere extends SceneObject {
 
   public void setRadius(double radius) {
     this.radius = radius;
-  }
-
-  public static class SphereBuilder extends SceneObjectBuilder<SphereBuilder> {
-
-    private double radius;
-
-    public SphereBuilder radius(double radius) {
-      this.radius = radius;
-
-      return this;
-    }
-
-    public Sphere build() {
-      return new Sphere(this);
-    }
-
   }
 
   @Override
@@ -74,5 +58,21 @@ public class Sphere extends SceneObject {
     temp = Double.doubleToLongBits(getRadius());
     result = 31 * result + (int) (temp ^ (temp >>> 32));
     return result;
+  }
+
+  public static class SphereBuilder extends SceneObjectBuilder<SphereBuilder> {
+
+    private double radius;
+
+    public SphereBuilder radius(double radius) {
+      this.radius = radius;
+
+      return this;
+    }
+
+    public Sphere build() {
+      return new Sphere(this);
+    }
+
   }
 }

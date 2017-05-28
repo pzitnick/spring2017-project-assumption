@@ -1,6 +1,5 @@
 package base.data;
 
-import base.data.util.Vector;
 import base.data.util.Vector3;
 
 import java.util.ArrayList;

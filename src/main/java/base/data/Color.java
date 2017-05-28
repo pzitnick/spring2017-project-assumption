@@ -21,9 +21,9 @@ public class Color {
 
   public List<Float> toFloatList() {
     List<Float> floats = new ArrayList<>();
-    floats.add((float)red);
-    floats.add((float)green);
-    floats.add((float)blue);
+    floats.add((float) red);
+    floats.add((float) green);
+    floats.add((float) blue);
     floats.add(0f);
 
     return floats;
