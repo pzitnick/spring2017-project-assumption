@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Sphere extends SceneObject {
 
-  private float radius;
+  private double radius;
 
-  public Sphere(Material material, Vector3 position, float radius) {
+  public Sphere(Material material, Vector3 position, double radius) {
     setMaterial(material);
     setPosition(position);
     setNumFloats(16);
@@ -27,9 +27,33 @@ public class Sphere extends SceneObject {
   @Override
   public List<Float> toFloatList() {
     List<Float> floatList = super.toFloatList();
-    floatList.add(radius);
+    floatList.add((float)radius);
 
     return floatList;
+  }
+
+  public double getRadius() {
+    return radius;
+  }
+
+  public void setRadius(double radius) {
+    this.radius = radius;
+  }
+
+  public static class SphereBuilder extends SceneObjectBuilder<SphereBuilder> {
+
+    private double radius;
+
+    public SphereBuilder radius(double radius) {
+      this.radius = radius;
+
+      return this;
+    }
+
+    public Sphere build() {
+      return new Sphere(this);
+    }
+
   }
 
   @Override
@@ -40,35 +64,15 @@ public class Sphere extends SceneObject {
 
     Sphere sphere = (Sphere) o;
 
-    return Float.compare(sphere.getRadius(), getRadius()) == 0;
+    return Double.compare(sphere.getRadius(), getRadius()) == 0;
   }
 
   @Override
   public int hashCode() {
-    return (getRadius() != +0.0f ? Float.floatToIntBits(getRadius()) : 0);
-  }
-
-  public float getRadius() {
-    return radius;
-  }
-
-  public void setRadius(float radius) {
-    this.radius = radius;
-  }
-
-  public static class SphereBuilder extends SceneObjectBuilder<SphereBuilder> {
-
-    private float radius;
-
-    public SphereBuilder radius(float radius) {
-      this.radius = radius;
-
-      return this;
-    }
-
-    public Sphere build() {
-      return new Sphere(this);
-    }
-
+    int result = super.hashCode();
+    long temp;
+    temp = Double.doubleToLongBits(getRadius());
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    return result;
   }
 }

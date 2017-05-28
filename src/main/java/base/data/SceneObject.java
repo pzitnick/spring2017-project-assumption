@@ -46,11 +46,6 @@ public abstract class SceneObject {
     this.numFloats = numFloats;
   }
 
-  public boolean equals(SceneObject sceneObject) {
-    return getClass() == sceneObject.getClass() && material.equals(sceneObject.getMaterial()) &&
-        position.equals(sceneObject.getPosition());
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -59,15 +54,16 @@ public abstract class SceneObject {
     SceneObject that = (SceneObject) o;
 
     if (getNumFloats() != that.getNumFloats()) return false;
-    if (!getMaterial().equals(that.getMaterial())) return false;
-    return getPosition().equals(that.getPosition());
+    if (getMaterial() != null ? !getMaterial().equals(that.getMaterial()) : that.getMaterial() != null)
+      return false;
+    return getPosition() != null ? getPosition().equals(that.getPosition()) : that.getPosition() == null;
   }
 
   @Override
   public int hashCode() {
     int result = getNumFloats();
-    result = 31 * result + getMaterial().hashCode();
-    result = 31 * result + getPosition().hashCode();
+    result = 31 * result + (getMaterial() != null ? getMaterial().hashCode() : 0);
+    result = 31 * result + (getPosition() != null ? getPosition().hashCode() : 0);
     return result;
   }
 

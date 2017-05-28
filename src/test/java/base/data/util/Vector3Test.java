@@ -7,11 +7,11 @@ public class Vector3Test extends TestCase {
 
   @Test
   public void testGetPoint() {
-    Vector3 v = new Vector3(0f, 1f, 2f);
+    Vector3 v = new Vector3(0.0, 1.0, 2.0);
 
-    assertEquals(v.getPoint(0), 0f);
-    assertEquals(v.getPoint(1), 1f);
-    assertEquals(v.getPoint(2), 2f);
+    assertEquals(v.getPoint(0), 0.0);
+    assertEquals(v.getPoint(1), 1.0);
+    assertEquals(v.getPoint(2), 2.0);
   }
 
   @Test
@@ -30,13 +30,13 @@ public class Vector3Test extends TestCase {
   public void testSetPoint() {
     Vector3 v = new Vector3();
 
-    v.setPoint(0, 10f);
-    v.setPoint(1, 20f);
-    v.setPoint(2, 30f);
+    v.setPoint(0, 10.0);
+    v.setPoint(1, 20.0);
+    v.setPoint(2, 30.0);
 
-    assertEquals(v.getPoint(0), 10f);
-    assertEquals(v.getPoint(1), 20f);
-    assertEquals(v.getPoint(2), 30f);
+    assertEquals(v.getPoint(0), 10.0);
+    assertEquals(v.getPoint(1), 20.0);
+    assertEquals(v.getPoint(2), 30.0);
   }
 
   @Test
@@ -44,7 +44,7 @@ public class Vector3Test extends TestCase {
     Vector3 v = new Vector3();
 
     try {
-      v.setPoint(4, 0f);
+      v.setPoint(4, 0.0);
       fail("Expected IndexOutOfBoundsException");
     } catch (IndexOutOfBoundsException e) {
       assert (true);

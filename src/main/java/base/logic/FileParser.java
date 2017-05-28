@@ -77,30 +77,30 @@ public class FileParser {
             return false;
           }
 
-          sceneObject.getMaterial().getColor().setRed(Float.parseFloat(values[0].trim()));
-          sceneObject.getMaterial().getColor().setGreen(Float.parseFloat(values[1].trim()));
-          sceneObject.getMaterial().getColor().setBlue(Float.parseFloat(values[2].trim()));
+          sceneObject.getMaterial().getColor().setRed(Double.parseDouble(values[0].trim()));
+          sceneObject.getMaterial().getColor().setGreen(Double.parseDouble(values[1].trim()));
+          sceneObject.getMaterial().getColor().setBlue(Double.parseDouble(values[2].trim()));
           break;
         case "emission":
           if (values.length != 3) {
             return false;
           }
 
-          sceneObject.getMaterial().getEmission().setRed(Float.parseFloat(values[0].trim()));
-          sceneObject.getMaterial().getEmission().setGreen(Float.parseFloat(values[1].trim()));
-          sceneObject.getMaterial().getEmission().setBlue(Float.parseFloat(values[2].trim()));
+          sceneObject.getMaterial().getEmission().setRed(Double.parseDouble(values[0].trim()));
+          sceneObject.getMaterial().getEmission().setGreen(Double.parseDouble(values[1].trim()));
+          sceneObject.getMaterial().getEmission().setBlue(Double.parseDouble(values[2].trim()));
           break;
         case "position":
           if (values.length != 3) {
             return false;
           }
 
-          sceneObject.getPosition().setPoint(0, Float.parseFloat(values[0].trim()));
-          sceneObject.getPosition().setPoint(1, Float.parseFloat(values[1].trim()));
-          sceneObject.getPosition().setPoint(2, Float.parseFloat(values[2].trim()));
+          sceneObject.getPosition().setPoint(0, Double.parseDouble(values[0].trim()));
+          sceneObject.getPosition().setPoint(1, Double.parseDouble(values[1].trim()));
+          sceneObject.getPosition().setPoint(2, Double.parseDouble(values[2].trim()));
           break;
         case "radius":
-          ((Sphere) sceneObject).setRadius(Float.parseFloat(values[0].trim()));
+          ((Sphere) sceneObject).setRadius(Double.parseDouble(values[0].trim()));
           break;
         default:
           return false;

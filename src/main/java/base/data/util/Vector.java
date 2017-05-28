@@ -27,7 +27,7 @@ public abstract class Vector implements VectorModifier {
     List<Float> floats = new ArrayList<>();
 
     for (int curPt = 0; curPt < numPoints; ++curPt) {
-      floats.add(getPoint(curPt));
+      floats.add((float)getPoint((curPt)));
     }
 
     floats.add(0f);
@@ -59,9 +59,9 @@ public abstract class Vector implements VectorModifier {
     return this;
   }
 
-  public abstract float getPoint(int index);
+  public abstract double getPoint(int index);
 
-  public abstract void setPoint(int index, float value);
+  public abstract void setPoint(int index, double value);
 
   public int getNumPoints() {
     return numPoints;
@@ -73,26 +73,12 @@ public abstract class Vector implements VectorModifier {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof Vector)) {
-      return false;
-    }
+    if (this == o) return true;
+    if (!(o instanceof Vector)) return false;
 
     Vector vector = (Vector) o;
 
-    if (getNumPoints() != ((Vector) o).getNumPoints()) {
-      return false;
-    }
-
-    for (int curPt = 0; curPt < numPoints && curPt < vector.getNumPoints(); ++curPt) {
-      if (getPoint(curPt) != ((Vector) o).getPoint(curPt)) {
-        return false;
-      }
-    }
-
-    return true;
+    return getNumPoints() == vector.getNumPoints();
   }
 
   @Override

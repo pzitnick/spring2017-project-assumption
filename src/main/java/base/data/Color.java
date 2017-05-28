@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Color {
 
-  private float red;
-  private float green;
-  private float blue;
+  private double red;
+  private double green;
+  private double blue;
 
-  public Color(float red, float green, float blue) {
+  public Color(double red, double green, double blue) {
     this.red = red;
     this.green = green;
     this.blue = blue;
@@ -21,35 +21,35 @@ public class Color {
 
   public List<Float> toFloatList() {
     List<Float> floats = new ArrayList<>();
-    floats.add(red);
-    floats.add(green);
-    floats.add(blue);
+    floats.add((float)red);
+    floats.add((float)green);
+    floats.add((float)blue);
     floats.add(0f);
 
     return floats;
   }
 
-  public float getRed() {
+  public double getRed() {
     return red;
   }
 
-  public void setRed(float red) {
+  public void setRed(double red) {
     this.red = red;
   }
 
-  public float getGreen() {
+  public double getGreen() {
     return green;
   }
 
-  public void setGreen(float green) {
+  public void setGreen(double green) {
     this.green = green;
   }
 
-  public float getBlue() {
+  public double getBlue() {
     return blue;
   }
 
-  public void setBlue(float blue) {
+  public void setBlue(double blue) {
     this.blue = blue;
   }
 
@@ -60,16 +60,21 @@ public class Color {
 
     Color color = (Color) o;
 
-    if (Float.compare(color.getRed(), getRed()) != 0) return false;
-    if (Float.compare(color.getGreen(), getGreen()) != 0) return false;
-    return Float.compare(color.getBlue(), getBlue()) == 0;
+    if (Double.compare(color.getRed(), getRed()) != 0) return false;
+    if (Double.compare(color.getGreen(), getGreen()) != 0) return false;
+    return Double.compare(color.getBlue(), getBlue()) == 0;
   }
 
   @Override
   public int hashCode() {
-    int result = (getRed() != +0.0f ? Float.floatToIntBits(getRed()) : 0);
-    result = 31 * result + (getGreen() != +0.0f ? Float.floatToIntBits(getGreen()) : 0);
-    result = 31 * result + (getBlue() != +0.0f ? Float.floatToIntBits(getBlue()) : 0);
+    int result;
+    long temp;
+    temp = Double.doubleToLongBits(getRed());
+    result = (int) (temp ^ (temp >>> 32));
+    temp = Double.doubleToLongBits(getGreen());
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    temp = Double.doubleToLongBits(getBlue());
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
     return result;
   }
 }
