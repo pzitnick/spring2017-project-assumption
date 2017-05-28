@@ -3,10 +3,3 @@ sphere color(1, 1, 1) emission() position() radius()
 sphere color(1, 1, 1) emission(2, 2, 2) position() radius()
 sphere color(1, 1, 1) emission(2, 2, 2) position(3, 3, 3) radius()
 sphere color(1, 1, 1) emission(2, 2, 2) position(3, 3, 3) radius(4)
-
-// here are invalid spheres that should be skipped
-invalid color() emission() position() radius()
-sphere invalid()
-sphere dsa
-sphere color()
-sphere color(1, 1) emission() position() radius()
