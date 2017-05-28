@@ -134,43 +134,4 @@ public class PathTracer {
     this.display = display;
   }
 
-  public CLContext getContext() {
-    return context;
-  }
-
-  public void setContext(CLContext context) {
-    this.context = context;
-  }
-
-  public CLDevice getDevice() {
-    return device;
-  }
-
-  public void setDevice(CLDevice device) {
-    this.device = device;
-  }
-
-  public CLProgram getProgram() {
-    return program;
-  }
-
-  public void setProgram(CLProgram program) {
-    this.program = program;
-  }
-
-  public CLCommandQueue getQueue() {
-    return queue;
-  }
-
-  public void setQueue(CLCommandQueue queue) {
-    this.queue = queue;
-  }
-
-  public CLKernel getKernel() {
-    return kernel;
-  }
-
-  public void setKernel(CLKernel kernel) {
-    this.kernel = kernel;
-  }
 }

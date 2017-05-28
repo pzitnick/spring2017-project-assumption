@@ -12,12 +12,8 @@ public class Display extends Canvas {
   private transient BufferedImage pixelMap;
 
   public Display(int width, int height) {
-    if (width < 0 || height < 0) {
-      throw new IllegalArgumentException();
-    } else {
-      this.width = width;
-      this.height = height;
-    }
+    this.width = width;
+    this.height = height;
   }
 
   public void initDisplay() {
@@ -47,45 +43,8 @@ public class Display extends Canvas {
     return width;
   }
 
-  public void setWidth(int width) {
-    if (width < 0) {
-      throw new IllegalArgumentException();
-    } else {
-      this.width = width;
-      if (jframe != null) {
-        jframe.setSize(width, height);
-      }
-    }
-  }
-
   public int getHeight() {
     return height;
   }
-
-  public void setHeight(int height) {
-    if (height < 0) {
-      throw new IllegalArgumentException();
-    } else {
-      this.height = height;
-      if (jframe != null) {
-        jframe.setSize(width, height);
-      }
-    }
-  }
-
-  public JFrame getjframe() {
-    return jframe;
-  }
-
-  public void setjframe(JFrame jFrame) {
-    this.jframe = jframe;
-  }
-
-  public BufferedImage getPixelMap() {
-    return pixelMap;
-  }
-
-  public void setPixelMap(BufferedImage pixelMap) {
-    this.pixelMap = pixelMap;
-  }
+  
 }
