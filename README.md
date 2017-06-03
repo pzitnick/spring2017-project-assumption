@@ -29,3 +29,19 @@ Shown is the result of the included base scene.
 Here is a class diagram abstracted to demonstrate the overarching architecture of the project.
 
 ![Class Diagram](images/classdiagram.png)
+
+## Software Architecture Pattern
+This project primarily subscribes to a three-tier architecture pattern including:
+ * Presenation layer: What the user sees
+ * Logic layer: Calculations performed on the information in the data lyer
+ * Data layer: The information itself
+
+![Architecture Pattern](images/architecture.png)
+
+
+## Design Patterns
+### Singleton
+The Singleton pattern was used to create the file parser.
+
+## Bridge
+The bridge pattern was used to create the Vector classes and interfaces.
