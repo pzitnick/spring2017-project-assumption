@@ -23,9 +23,9 @@ $ mvn exec:java -Dexec.mainClass=base.Application
 ## Example Run
 Shown is the result of the included base scene.
 
-![Base Scene](https://github.com/cpe305Spring17/spring2017-project-assumption/blob/gh-pages/images/scene1.jpg)
+![Base Scene](images/scene1.jpg)
 
 ## Class Diagram
 Here is a class diagram abstracted to demonstrate the overarching architecture of the project.
 
-![Class Diagram](https://github.com/cpe305Spring17/spring2017-project-assumption/blob/gh-pages/images/classdiagram.png)
+![Class Diagram](images/classdiagram.png)
