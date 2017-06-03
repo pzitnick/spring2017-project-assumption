@@ -19,3 +19,5 @@ or
 ```bash
 $ mvn exec:java -Dexec.mainClass=base.Application
 ```
+
+More information can be found on [Github Pages](https://cpe305spring17.github.io/spring2017-project-assumption/).
